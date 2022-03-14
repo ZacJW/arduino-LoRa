@@ -762,7 +762,7 @@ ISR_PREFIX void LoRaClass::onDio0Rise()
   LoRa.handleDio0Rise();
 }
 
-double LoRaClass::Airtime_Message()
+float LoRaClass::transmissionAirtime()
 {
   int SF = getSpreadingFactor();
   int BW = getSignalBandwidth();
@@ -781,12 +781,12 @@ double LoRaClass::Airtime_Message()
 
   int CR = (readRegister(REG_MODEM_CONFIG_1) & 0xf1) + 4;
 
-  double Tsym = pow(2, SF) / (BW)*1000;
-  double Tpreamble = (8 + 4.25) * Tsym;
+  float Tsym = (float) (1 << SF) / BW;
+  float Tpreamble = (8 + 4.25) * Tsym;
   int PrePay = ceil((8.0 * PL - 4.0 * SF + 28 + 16 - 20 * (1 - H)) / (4.0 * (SF - 2.0 * DE))) * (CR);
   int payloadSymbNb = 8 + _max(PrePay, 0);
-  double Tpayload = payloadSymbNb * Tsym;
-  double Tpacket = Tpreamble + Tpayload;
+  float Tpayload = payloadSymbNb * Tsym;
+  float Tpacket = Tpreamble + Tpayload;
   return Tpacket;
 }
 

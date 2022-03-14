@@ -96,7 +96,7 @@ public:
   void setSPIFrequency(uint32_t frequency);
 
   void dumpRegisters(Stream& out);
-  double Airtime_Message();
+  float transmissionAirtime();
 private:
   void explicitHeaderMode();
   void implicitHeaderMode();
