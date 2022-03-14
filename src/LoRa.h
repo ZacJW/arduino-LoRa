@@ -48,6 +48,7 @@ public:
   long packetFrequencyError();
 
   int rssi();
+  bool isReceivingNow();
 
   // from Print
   virtual size_t write(uint8_t byte);

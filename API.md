@@ -258,6 +258,18 @@ Returns the next byte in the packet or `-1` if no bytes are available.
 
 **Note:** Other Arduino [`Stream` API's](https://www.arduino.cc/en/Reference/Stream) can also be used to read data from the packet
 
+### Detecting Transmissions
+
+Detect if the radio is receiving a transmission at the moment.
+
+```arduino
+if (LoRa.isReceivingNow()) {
+    // ...
+}
+```
+
+Returns true if the radio currently detects a signal, or false otherwise.
+
 ## Other radio modes
 
 ### Idle mode
