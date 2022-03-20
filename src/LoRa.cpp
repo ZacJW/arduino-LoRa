@@ -779,11 +779,11 @@ float LoRaClass::transmissionAirtime()
     DE = 0;
   }
 
-  int CR = (readRegister(REG_MODEM_CONFIG_1) & 0xf1) + 4;
+  int CR = readRegister(REG_MODEM_CONFIG_1) & 0x0E;
 
   float Tsym = (float) (1 << SF) / BW;
   float Tpreamble = (8 + 4.25) * Tsym;
-  int PrePay = ceil((8.0 * PL - 4.0 * SF + 28 + 16 - 20 * (1 - H)) / (4.0 * (SF - 2.0 * DE))) * (CR);
+  int PrePay = ceil((8.0 * PL - 4.0 * SF + 28 + 16 - 20 * (1 - H)) / (4.0 * (SF - 2.0 * DE))) * (CR + 4);
   int payloadSymbNb = 8 + _max(PrePay, 0);
   float Tpayload = payloadSymbNb * Tsym;
   float Tpacket = Tpreamble + Tpayload;
